@@ -55,7 +55,7 @@ use Rack::Auth::Request do |env|
   https = Net::HTTP.new('auth.dark-kuins.net', 443)
   https.use_ssl = true
   req = Net::HTTP::Get.new('/test')
-  req['x-ngx-omniauth-original-uri'] = 'https://rack-auth-request-testkun.dark-kuins.net/'
+  req['x-ngx-omniauth-original-uri'] = "https://rack-auth-request-testkun.dark-kuins.net#{env['REQUEST_URI']}"
   req['cookie'] = env['HTTP_COOKIE']
 
   response = https.request(req)
