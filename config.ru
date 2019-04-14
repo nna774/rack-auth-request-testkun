@@ -36,7 +36,7 @@ use Rack::Auth::Request::Callback, '/_auth/callback' do |env|
   req = Net::HTTP::Get.new("/callback?#{env['QUERY_STRING']}")
 
   response = https.request(req)
-  [ response.code.to_i, response.header, [ response.body ] ]
+  [ response.code.to_i, response.to_hash, [ response.body ] ]
 end
 
 use Rack::Auth::Request::Initiate do |env|
@@ -48,7 +48,7 @@ use Rack::Auth::Request::Initiate do |env|
   req['cookie'] = env['HTTP_COOKIE']
 
   response = https.request(req)
-  [ response.code.to_i, response.header, [ response.body ] ]
+  [ response.code.to_i, response.to_hash, [ response.body ] ]
 end
 
 use Rack::Auth::Request do |env|
@@ -59,7 +59,7 @@ use Rack::Auth::Request do |env|
   req['cookie'] = env['HTTP_COOKIE']
 
   response = https.request(req)
-  [ response.code.to_i, response.header, [ response.body ] ]
+  [ response.code.to_i, response.to_hash, [ response.body ] ]
 end
 
 run lambda { |_|
