@@ -23,7 +23,7 @@ class Rack::Auth::Request
     end
 
     def call(env)
-      return @callbacker.call(env) if env['REQUEST_URI'].split(??, 2) == @callback_path
+      return @callbacker.call(env) if env['REQUEST_URI'].split(??, 2)[0] == @callback_path
 
       @app.call(env)
     end
